@@ -36,7 +36,7 @@
 		F65EA8731BDBBADA00167F45 /* Actor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 		F65EA8751BDBBAF300167F45 /* Queueable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queueable.swift; sourceTree = "<group>"; };
 		F65EA8771BDBBCD000167F45 /* TestInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestInteractor.swift; sourceTree = "<group>"; };
-		F65EA8791BDBD23600167F45 /* ObservableActorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObservableActorTests.swift; path = ActTests/ObservableActorTests.swift; sourceTree = "<group>"; };
+		F65EA8791BDBD23600167F45 /* ObservableActorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableActorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +61,6 @@
 		F65EA84F1BDBBAA100167F45 = {
 			isa = PBXGroup;
 			children = (
-				F65EA8791BDBD23600167F45 /* ObservableActorTests.swift */,
 				F65EA85B1BDBBAA100167F45 /* Act */,
 				F65EA8671BDBBAA100167F45 /* ActTests */,
 				F65EA85A1BDBBAA100167F45 /* Products */,
@@ -91,6 +90,7 @@
 		F65EA8671BDBBAA100167F45 /* ActTests */ = {
 			isa = PBXGroup;
 			children = (
+				F65EA8791BDBD23600167F45 /* ObservableActorTests.swift */,
 				F65EA8681BDBBAA100167F45 /* ActorTests.swift */,
 				F65EA8771BDBBCD000167F45 /* TestInteractor.swift */,
 				F65EA86A1BDBBAA100167F45 /* Info.plist */,
@@ -397,6 +397,7 @@
 				F65EA86F1BDBBAA100167F45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F65EA8701BDBBAA100167F45 /* Build configuration list for PBXNativeTarget "ActTests" */ = {
 			isa = XCConfigurationList;
@@ -405,6 +406,7 @@
 				F65EA8721BDBBAA100167F45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
