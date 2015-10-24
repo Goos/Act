@@ -32,7 +32,7 @@ extension NSOperationQueue : Queueable {
     }
 }
 
-// A workaround due to the dispatch queue protocol not being extendable.
+// A workaround due to the dispatch queue protocol not being extendable to conform to protocols.
 public final class DispatchQueueable : Queueable {
     let dispatchQueue: dispatch_queue_t
     
