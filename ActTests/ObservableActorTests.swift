@@ -14,7 +14,7 @@ enum TransactionType {
     case Deposit
 }
 
-struct Transaction : Intent, Equatable {
+struct Transaction : Message, Equatable {
     let type = "Transaction"
     let transactionType: TransactionType
     let amount: Float
@@ -38,8 +38,8 @@ class ObservableActorTests: XCTestCase {
     var bank: ObservableActor<BankState>!
     
     func testSubscribing() {
-        bank = ObservableActor(initialState: BankState(transactions: [], balance: 0.0), interactors: [], reducer: { (state, intent) in
-            if let t = intent as? Transaction {
+        bank = ObservableActor(initialState: BankState(transactions: [], balance: 0.0), interactors: [], reducer: { (state, message) in
+            if let t = message as? Transaction {
                 let transactions = [state.transactions, [t]].flatMap { $0 }
                 if t.transactionType == .Deposit {
                     return BankState(transactions: transactions, balance: state.balance + t.amount)

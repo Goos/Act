@@ -8,13 +8,13 @@
 
 import Foundation
 
-public protocol Intent {
+public protocol Message {
     var type: String { get }
 }
 
 public class Actor<T> {
-    public typealias Interactor = (Actor<T>, Intent, (Intent) -> ()) -> ()
-    public typealias Reducer = (T, Intent) -> T
+    public typealias Interactor = (Actor<T>, Message, (Message) -> ()) -> ()
+    public typealias Reducer = (T, Message) -> T
     
     public var state: T {
         return _state
@@ -36,19 +36,19 @@ public class Actor<T> {
         self.backgroundQueue = backgroundQueue ?? dispatch_queue_create("com.act.actor", DISPATCH_QUEUE_SERIAL).queueable()
     }
     
-    public func send(intent: Intent, completion: ((T) -> ())? = nil) {
+    public func send(message: Message, completion: ((T) -> ())? = nil) {
         backgroundQueue.enqueue {
             if self.interactors.count > 0 {
                 var gen = self.interactors.generate()
                 
-                func passOn(intent: Intent) {
+                func passOn(message: Message) {
                     if let next = gen.next() {
                         self.backgroundQueue.enqueue {
-                            next(self, intent, passOn)
+                            next(self, message, passOn)
                         }
                     } else {
                         self.backgroundQueue.enqueue {
-                            self._state = self.reducer(self.state, intent)
+                            self._state = self.reducer(self.state, message)
                             if let comp = completion {
                                 let state = self.state
                                 self.mainQueue.enqueue { comp(state) }
@@ -57,9 +57,9 @@ public class Actor<T> {
                     }
                 }
                 
-                passOn(intent)
+                passOn(message)
             } else {
-                self._state = self.reducer(self.state, intent)
+                self._state = self.reducer(self.state, message)
                 if let comp = completion {
                     let state = self.state
                     self.mainQueue.enqueue { comp(state) }

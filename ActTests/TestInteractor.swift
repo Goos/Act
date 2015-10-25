@@ -10,7 +10,7 @@ import XCTest
 @testable import Act
 
 final class TestInteractor {
-    typealias Comparator = (Intent) -> Bool
+    typealias Comparator = (Message) -> Bool
     typealias Expectation = (Comparator, XCTestExpectation)
     var expectations: [Expectation]
     let backgroundQueue = dispatch_queue_create("expectations", DISPATCH_QUEUE_SERIAL)
@@ -19,7 +19,7 @@ final class TestInteractor {
         expectations = expected
     }
     
-    func receive<T>(actor: Actor<T>, intent: Intent, next: (Intent) -> ()) {
+    func receive<T>(actor: Actor<T>, intent: Message, next: (Message) -> ()) {
         let exp = expectations.removeFirst()
         let comp = exp.0
         if comp(intent) {

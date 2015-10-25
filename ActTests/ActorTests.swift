@@ -10,23 +10,23 @@ import XCTest
 @testable import Act
 class ActorTests: XCTestCase {
     
-    struct Add : Intent {
+    struct Add : Message {
         let type = "Add"
         let value: Float
     }
     
-    struct Subtract : Intent {
+    struct Subtract : Message {
         let type = "Subtract"
         let value: Float
     }
     
-    struct Multiply : Intent {
+    struct Multiply : Message {
         let type = "Multiply"
         let value: Float
     }
     
-    func calculatorReducer(state: Float, intent: Intent) -> Float {
-        switch(intent) {
+    func calculatorReducer(state: Float, message: Message) -> Float {
+        switch(message) {
         case let i as Add:
             return state + i.value
         case let i as Subtract:
@@ -47,13 +47,13 @@ class ActorTests: XCTestCase {
     func testSending() {
         let tester = TestInteractor(expected: [
             ( { let i = $0 as? Multiply; return i?.value == 3.0 },
-            expectationWithDescription("The actor should receive an intent to multiply.")),
+            expectationWithDescription("The actor should receive an message to multiply.")),
             
             ( { let i = $0 as? Add; return i?.value == 5.0 },
-            expectationWithDescription("The actor should receive an intent to add")),
+            expectationWithDescription("The actor should receive an message to add")),
             
             ( { let i = $0 as? Subtract; return i?.value == 10.0 },
-            expectationWithDescription("The actor should receive an intent to subtract.")),
+            expectationWithDescription("The actor should receive an message to subtract.")),
         ])
         
         calculator = Actor(initialState: 4.0, interactors: [tester.receive], reducer: calculatorReducer)
@@ -69,7 +69,7 @@ class ActorTests: XCTestCase {
     func testCallbacks() {
         calculator = Actor(initialState: 4.0, interactors: [], reducer: calculatorReducer, mainQueue: dispatch_queue_create("test", DISPATCH_QUEUE_SERIAL).queueable())
         
-        let subtractExp = expectationWithDescription("The calculator should send a callback once an intent has been carried out.")
+        let subtractExp = expectationWithDescription("The calculator should send a callback once an message has been carried out.")
         calculator.send(Subtract(value: 2)) { state in
             if state == 2 {
                 subtractExp.fulfill()

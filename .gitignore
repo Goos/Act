@@ -17,3 +17,5 @@ xcuserdata
 DerivedData
 *.hmap
 *.ipa
+
+Carthage/
