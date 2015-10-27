@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F65EA8581BDBBAA100167F45"
                BuildableName = "Act.framework"
-               BlueprintName = "Act"
+               BlueprintName = "Act-iOS"
                ReferencedContainer = "container:Act.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,7 +44,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F65EA8581BDBBAA100167F45"
             BuildableName = "Act.framework"
-            BlueprintName = "Act"
+            BlueprintName = "Act-iOS"
             ReferencedContainer = "container:Act.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -66,7 +66,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F65EA8581BDBBAA100167F45"
             BuildableName = "Act.framework"
-            BlueprintName = "Act"
+            BlueprintName = "Act-iOS"
             ReferencedContainer = "container:Act.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -84,7 +84,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F65EA8581BDBBAA100167F45"
             BuildableName = "Act.framework"
-            BlueprintName = "Act"
+            BlueprintName = "Act-iOS"
             ReferencedContainer = "container:Act.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

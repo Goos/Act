@@ -25,29 +25,29 @@ public class Actor<T> {
     public var interactors: [Interactor] = []
     public var reducer: Reducer
     
-    private var backgroundQueue: Queueable
+    private var processingQueue: Queueable
     private var mainQueue: Queueable
 
-    public init(initialState: T, interactors: [Interactor], reducer: Reducer, mainQueue: Queueable? = nil, backgroundQueue: Queueable? = nil) {
+    public init(initialState: T, interactors: [Interactor], reducer: Reducer, mainQueue: Queueable? = nil, processingQueue: Queueable? = nil) {
         self._state = initialState
         self.interactors = interactors
         self.reducer = reducer
         self.mainQueue = mainQueue ?? dispatch_get_main_queue().queueable()
-        self.backgroundQueue = backgroundQueue ?? dispatch_queue_create("com.act.actor", DISPATCH_QUEUE_SERIAL).queueable()
+        self.processingQueue = processingQueue ?? dispatch_queue_create("com.act.actor", DISPATCH_QUEUE_SERIAL).queueable()
     }
     
     public func send(message: Message, completion: ((T) -> ())? = nil) {
-        backgroundQueue.enqueue {
+        processingQueue.enqueue {
             if self.interactors.count > 0 {
                 var gen = self.interactors.generate()
                 
                 func passOn(message: Message) {
                     if let next = gen.next() {
-                        self.backgroundQueue.enqueue {
+                        self.processingQueue.enqueue {
                             next(self, message, passOn)
                         }
                     } else {
-                        self.backgroundQueue.enqueue {
+                        self.processingQueue.enqueue {
                             self._state = self.reducer(self.state, message)
                             if let comp = completion {
                                 let state = self.state
@@ -99,8 +99,8 @@ public class ObservableActor<T: Equatable> : Actor<T> {
         }
     }
     
-    override init(initialState: T, interactors: [Interactor], reducer: Reducer, mainQueue: Queueable? = nil, backgroundQueue: Queueable? = nil) {
-        super.init(initialState: initialState, interactors: interactors, reducer: reducer, mainQueue: mainQueue, backgroundQueue: backgroundQueue)
+    override init(initialState: T, interactors: [Interactor], reducer: Reducer, mainQueue: Queueable? = nil, processingQueue: Queueable? = nil) {
+        super.init(initialState: initialState, interactors: interactors, reducer: reducer, mainQueue: mainQueue, processingQueue: processingQueue)
     }
 }
 

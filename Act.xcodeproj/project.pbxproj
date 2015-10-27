@@ -14,6 +14,9 @@
 		F65EA8761BDBBAF300167F45 /* Queueable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EA8751BDBBAF300167F45 /* Queueable.swift */; settings = {ASSET_TAGS = (); }; };
 		F65EA8781BDBBCD000167F45 /* TestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EA8771BDBBCD000167F45 /* TestInteractor.swift */; settings = {ASSET_TAGS = (); }; };
 		F65EA87A1BDBD23600167F45 /* ObservableActorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EA8791BDBD23600167F45 /* ObservableActorTests.swift */; settings = {ASSET_TAGS = (); }; };
+		F65EA9321BDEF93700167F45 /* Act.h in Headers */ = {isa = PBXBuildFile; fileRef = F65EA85C1BDBBAA100167F45 /* Act.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F65EA9331BDEF93700167F45 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EA8731BDBBADA00167F45 /* Actor.swift */; settings = {ASSET_TAGS = (); }; };
+		F65EA9341BDEF93700167F45 /* Queueable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EA8751BDBBAF300167F45 /* Queueable.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +40,7 @@
 		F65EA8751BDBBAF300167F45 /* Queueable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queueable.swift; sourceTree = "<group>"; };
 		F65EA8771BDBBCD000167F45 /* TestInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestInteractor.swift; sourceTree = "<group>"; };
 		F65EA8791BDBD23600167F45 /* ObservableActorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableActorTests.swift; sourceTree = "<group>"; };
+		F65EA92A1BDEF77B00167F45 /* Act.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Act.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +56,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F65EA8641BDBBAA100167F45 /* Act.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F65EA9261BDEF77B00167F45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +83,7 @@
 			children = (
 				F65EA8591BDBBAA100167F45 /* Act.framework */,
 				F65EA8631BDBBAA100167F45 /* ActTests.xctest */,
+				F65EA92A1BDEF77B00167F45 /* Act.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,12 +121,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F65EA9271BDEF77B00167F45 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F65EA9321BDEF93700167F45 /* Act.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		F65EA8581BDBBAA100167F45 /* Act */ = {
+		F65EA8581BDBBAA100167F45 /* Act-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F65EA86D1BDBBAA100167F45 /* Build configuration list for PBXNativeTarget "Act" */;
+			buildConfigurationList = F65EA86D1BDBBAA100167F45 /* Build configuration list for PBXNativeTarget "Act-iOS" */;
 			buildPhases = (
 				F65EA8541BDBBAA100167F45 /* Sources */,
 				F65EA8551BDBBAA100167F45 /* Frameworks */,
@@ -125,7 +145,7 @@
 			);
 			dependencies = (
 			);
-			name = Act;
+			name = "Act-iOS";
 			productName = Act;
 			productReference = F65EA8591BDBBAA100167F45 /* Act.framework */;
 			productType = "com.apple.product-type.framework";
@@ -148,6 +168,24 @@
 			productReference = F65EA8631BDBBAA100167F45 /* ActTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F65EA9291BDEF77B00167F45 /* Act-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F65EA92F1BDEF77B00167F45 /* Build configuration list for PBXNativeTarget "Act-OSX" */;
+			buildPhases = (
+				F65EA9251BDEF77B00167F45 /* Sources */,
+				F65EA9261BDEF77B00167F45 /* Frameworks */,
+				F65EA9271BDEF77B00167F45 /* Headers */,
+				F65EA9281BDEF77B00167F45 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Act-OSX";
+			productName = "Act-OSX";
+			productReference = F65EA92A1BDEF77B00167F45 /* Act.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -164,6 +202,9 @@
 					F65EA8621BDBBAA100167F45 = {
 						CreatedOnToolsVersion = 7.0.1;
 					};
+					F65EA9291BDEF77B00167F45 = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
 				};
 			};
 			buildConfigurationList = F65EA8531BDBBAA100167F45 /* Build configuration list for PBXProject "Act" */;
@@ -178,7 +219,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F65EA8581BDBBAA100167F45 /* Act */,
+				F65EA8581BDBBAA100167F45 /* Act-iOS */,
+				F65EA9291BDEF77B00167F45 /* Act-OSX */,
 				F65EA8621BDBBAA100167F45 /* ActTests */,
 			);
 		};
@@ -193,6 +235,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F65EA8611BDBBAA100167F45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F65EA9281BDEF77B00167F45 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -221,12 +270,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F65EA9251BDEF77B00167F45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F65EA9331BDEF93700167F45 /* Actor.swift in Sources */,
+				F65EA9341BDEF93700167F45 /* Queueable.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		F65EA8661BDBBAA100167F45 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F65EA8581BDBBAA100167F45 /* Act */;
+			target = F65EA8581BDBBAA100167F45 /* Act-iOS */;
 			targetProxy = F65EA8651BDBBAA100167F45 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -334,7 +392,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.goos.Act;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Act;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -353,7 +411,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.goos.Act;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Act;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -378,6 +436,46 @@
 			};
 			name = Release;
 		};
+		F65EA9301BDEF77B00167F45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Act/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goos.Act;
+				PRODUCT_NAME = Act;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F65EA9311BDEF77B00167F45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Act/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goos.Act;
+				PRODUCT_NAME = Act;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -390,7 +488,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F65EA86D1BDBBAA100167F45 /* Build configuration list for PBXNativeTarget "Act" */ = {
+		F65EA86D1BDBBAA100167F45 /* Build configuration list for PBXNativeTarget "Act-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F65EA86E1BDBBAA100167F45 /* Debug */,
@@ -407,6 +505,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F65EA92F1BDEF77B00167F45 /* Build configuration list for PBXNativeTarget "Act-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F65EA9301BDEF77B00167F45 /* Debug */,
+				F65EA9311BDEF77B00167F45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
