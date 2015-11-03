@@ -45,7 +45,7 @@ class ActorTests: XCTestCase {
     }
     
     func testSending() {
-        let tester = TestInteractor(expected: [
+        let tester = TestTransformer(expected: [
             ( { let i = $0 as? Multiply; return i?.value == 3.0 },
             expectationWithDescription("The actor should receive an message to multiply.")),
             

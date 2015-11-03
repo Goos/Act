@@ -1,5 +1,5 @@
 //
-//  TestInteractor.swift
+//  TestTransformer.swift
 //  Act
 //
 //  Created by Robin Goos on 24/10/15.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Act
 
-final class TestInteractor {
+final class TestTransformer {
     typealias Comparator = (Message) -> Bool
     typealias Expectation = (Comparator, XCTestExpectation)
     var expectations: [Expectation]

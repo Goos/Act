@@ -13,7 +13,7 @@ public protocol Message {
 }
 
 public class Actor<T> {
-    public typealias Interactor = (Actor<T>, Message, (Message) -> ()) -> ()
+    public typealias Transformer = (Actor<T>, Message, (Message) -> ()) -> ()
     public typealias Reducer = (T, Message) -> T
     
     public var state: T {
@@ -22,15 +22,15 @@ public class Actor<T> {
     
     private var _state: T
     
-    public var interactors: [Interactor] = []
+    public var transformers: [Transformer] = []
     public var reducer: Reducer
     
     private var processingQueue: Queueable
     private var mainQueue: Queueable
 
-    public init(initialState: T, interactors: [Interactor], reducer: Reducer, mainQueue: Queueable? = nil, processingQueue: Queueable? = nil) {
+    public init(initialState: T, transformers: [Transformer], reducer: Reducer, mainQueue: Queueable? = nil, processingQueue: Queueable? = nil) {
         self._state = initialState
-        self.interactors = interactors
+        self.transformers = transformers
         self.reducer = reducer
         self.mainQueue = mainQueue ?? dispatch_get_main_queue().queueable()
         self.processingQueue = processingQueue ?? dispatch_queue_create("com.act.actor", DISPATCH_QUEUE_SERIAL).queueable()
@@ -38,8 +38,8 @@ public class Actor<T> {
     
     public func send(message: Message, completion: ((T) -> ())? = nil) {
         processingQueue.enqueue {
-            if self.interactors.count > 0 {
-                var gen = self.interactors.generate()
+            if self.transformers.count > 0 {
+                var gen = self.transformers.generate()
                 
                 func passOn(message: Message) {
                     if let next = gen.next() {
@@ -99,8 +99,8 @@ public class ObservableActor<T: Equatable> : Actor<T> {
         }
     }
     
-    override init(initialState: T, interactors: [Interactor], reducer: Reducer, mainQueue: Queueable? = nil, processingQueue: Queueable? = nil) {
-        super.init(initialState: initialState, interactors: interactors, reducer: reducer, mainQueue: mainQueue, processingQueue: processingQueue)
+    override init(initialState: T, transformers: [Transformer], reducer: Reducer, mainQueue: Queueable? = nil, processingQueue: Queueable? = nil) {
+        super.init(initialState: initialState, transformers: transformers, reducer: reducer, mainQueue: mainQueue, processingQueue: processingQueue)
     }
 }
 
