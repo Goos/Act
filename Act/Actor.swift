@@ -22,11 +22,11 @@ public class Actor<T> {
     
     private var _state: T
     
-    public var transformers: [Transformer] = []
-    public var reducer: Reducer
+    public let transformers: [Transformer]
+    public let reducer: Reducer
     
-    private var processingQueue: Queueable
-    private var mainQueue: Queueable
+    private let processingQueue: Queueable
+    private let mainQueue: Queueable
 
     public init(initialState: T, transformers: [Transformer], reducer: Reducer, mainQueue: Queueable? = nil, processingQueue: Queueable? = nil) {
         self._state = initialState
