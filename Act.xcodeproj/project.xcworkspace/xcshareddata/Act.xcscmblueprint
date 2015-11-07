@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "616A0228CA8A76A02EFBA2FDB20140E0D50B9DEF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "616A0228CA8A76A02EFBA2FDB20140E0D50B9DEF" : 0,
+    "D4AE04403D9507BE32CDE907D0E5AE5A1201A852" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "1D6773E3-34AA-4486-ABD6-FCC4ACD84A47",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "616A0228CA8A76A02EFBA2FDB20140E0D50B9DEF" : "Act\/",
+    "D4AE04403D9507BE32CDE907D0E5AE5A1201A852" : "..\/.."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Act",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Act.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Goos\/Act.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "616A0228CA8A76A02EFBA2FDB20140E0D50B9DEF"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Goos\/ControllerKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D4AE04403D9507BE32CDE907D0E5AE5A1201A852"
+    }
+  ]
+}
