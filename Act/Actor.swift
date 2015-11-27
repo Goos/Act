@@ -70,7 +70,7 @@ public class Actor<T> {
 }
 
 public class ObservableActor<T: Equatable> : Actor<T> {
-    private var subscribers: [Subscriber<T>] = []
+    private var observers: [Observer<T>] = []
     
     override private var _state: T {
         didSet {
@@ -83,34 +83,34 @@ public class ObservableActor<T: Equatable> : Actor<T> {
     private func notifyChange() {
         let state = self.state
         mainQueue.enqueue {
-            for subscriber in self.subscribers {
-                subscriber.closure(state)
+            for observer in self.observers {
+                observer.closure(state)
             }
         }
     }
     
-    public func subscribe(subscriber: (T) -> ()) -> (() -> ())! {
-        let boxed = Subscriber(closure: subscriber)
-        subscribers.append(boxed)
+    public func observe(observer: (T) -> ()) -> (() -> ())! {
+        let boxed = Observer(closure: observer)
+        observers.append(boxed)
         return {
-            if let index = self.subscribers.indexOf(boxed) {
-                self.subscribers.removeAtIndex(index)
+            if let index = self.observers.indexOf(boxed) {
+                self.observers.removeAtIndex(index)
             }
         }
     }
     
-    override init(initialState: T, transformers: [Transformer], reducer: Reducer, mainQueue: Queueable? = nil, processingQueue: Queueable? = nil) {
+    public override init(initialState: T, transformers: [Transformer], reducer: Reducer, mainQueue: Queueable? = nil, processingQueue: Queueable? = nil) {
         super.init(initialState: initialState, transformers: transformers, reducer: reducer, mainQueue: mainQueue, processingQueue: processingQueue)
     }
 }
 
-private final class Subscriber<T: Equatable> : Equatable {
+private final class Observer<T: Equatable> : Equatable {
     let closure: (T) -> ()
     init(closure: (T) -> ()) {
         self.closure = closure
     }
 }
 
-private func ==<T>(lhs: Subscriber<T>, rhs: Subscriber<T>) -> Bool {
+private func ==<T>(lhs: Observer<T>, rhs: Observer<T>) -> Bool {
     return lhs === rhs
 }
