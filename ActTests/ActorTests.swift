@@ -44,32 +44,32 @@ class ActorTests: XCTestCase {
         calculator = nil
     }
     
-    func testSending() {
-        let tester = TestTransformer(expected: [
-            ( { let i = $0 as? Multiply; return i?.value == 3.0 },
-            expectationWithDescription("The actor should receive an message to multiply.")),
-            
-            ( { let i = $0 as? Add; return i?.value == 5.0 },
-            expectationWithDescription("The actor should receive an message to add")),
-            
-            ( { let i = $0 as? Subtract; return i?.value == 10.0 },
-            expectationWithDescription("The actor should receive an message to subtract.")),
+    func testMessagePassing() {
+        let tester = TestTransformer(expected: [({
+            let i = $0 as? Multiply; return i?.value == 3.0
+        }, expectationWithDescription("The actor should receive a message to multiply.")),
+        ({
+            let i = $0 as? Add; return i?.value == 5.0
+        }, expectationWithDescription("The actor should receive a message to add")),
+        ({
+            let i = $0 as? Subtract; return i?.value == 10.0
+        }, expectationWithDescription("The actor should receive a message to subtract.")),
         ])
         
-        calculator = Actor(initialState: 4.0, interactors: [tester.receive], reducer: calculatorReducer)
+        calculator = Actor(initialState: 4.0, transformers: [tester.receive], reducer: calculatorReducer)
         
         calculator.send(Multiply(value: 3))
         calculator.send(Add(value: 5))
         calculator.send(Subtract(value: 10))
         waitForExpectationsWithTimeout(1, handler: nil)
         
-        XCTAssert(calculator.state == 4 * 3 + 5 - 10, "The state should be updated in accordance with the actions sent.")
+        XCTAssert(calculator.state == 4 * 3 + 5 - 10, "The state should be updated by the actor's reducer after the messages have been handled.")
     }
     
-    func testCallbacks() {
-        calculator = Actor(initialState: 4.0, interactors: [], reducer: calculatorReducer, mainQueue: dispatch_queue_create("test", DISPATCH_QUEUE_SERIAL).queueable())
+    func testMessageCallbacks() {
+        calculator = Actor(initialState: 4.0, transformers: [], reducer: calculatorReducer, callbackQueue: dispatch_queue_create("test", DISPATCH_QUEUE_SERIAL).queueable())
         
-        let subtractExp = expectationWithDescription("The calculator should send a callback once an message has been carried out.")
+        let subtractExp = expectationWithDescription("The calculator should send a callback once a message has been handled.")
         calculator.send(Subtract(value: 2)) { state in
             if state == 2 {
                 subtractExp.fulfill()

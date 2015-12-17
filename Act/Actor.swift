@@ -25,33 +25,33 @@ public class Actor<T> {
     public let transformers: [Transformer]
     public let reducer: Reducer
     
-    private let processingQueue: Queueable
-    private let mainQueue: Queueable
+    private let messageQueue: Queueable
+    private let callbackQueue: Queueable
 
-    public init(initialState: T, transformers: [Transformer], reducer: Reducer, mainQueue: Queueable? = nil, processingQueue: Queueable? = nil) {
+    public init(initialState: T, transformers: [Transformer], reducer: Reducer, callbackQueue: Queueable? = nil, messageQueue: Queueable? = nil) {
         self._state = initialState
         self.transformers = transformers
         self.reducer = reducer
-        self.mainQueue = mainQueue ?? dispatch_get_main_queue().queueable()
-        self.processingQueue = processingQueue ?? dispatch_queue_create("com.act.actor", DISPATCH_QUEUE_SERIAL).queueable()
+        self.callbackQueue = callbackQueue ?? dispatch_get_main_queue().queueable()
+        self.messageQueue = messageQueue ?? dispatch_queue_create("com.act.actor", DISPATCH_QUEUE_SERIAL).queueable()
     }
     
     public func send(message: Message, completion: ((T) -> ())? = nil) {
-        processingQueue.enqueue {
+        messageQueue.enqueue {
             if self.transformers.count > 0 {
                 var gen = self.transformers.generate()
                 
                 func passOn(message: Message) {
                     if let next = gen.next() {
-                        self.processingQueue.enqueue {
+                        self.messageQueue.enqueue {
                             next(self, message, passOn)
                         }
                     } else {
-                        self.processingQueue.enqueue {
+                        self.messageQueue.enqueue {
                             self._state = self.reducer(self.state, message)
                             if let comp = completion {
                                 let state = self.state
-                                self.mainQueue.enqueue { comp(state) }
+                                self.callbackQueue.enqueue { comp(state) }
                             }
                         }
                     }
@@ -62,7 +62,7 @@ public class Actor<T> {
                 self._state = self.reducer(self.state, message)
                 if let comp = completion {
                     let state = self.state
-                    self.mainQueue.enqueue { comp(state) }
+                    self.callbackQueue.enqueue { comp(state) }
                 }
             }
         }
@@ -82,7 +82,7 @@ public class ObservableActor<T: Equatable> : Actor<T> {
     
     private func notifyChange() {
         let state = self.state
-        mainQueue.enqueue {
+        callbackQueue.enqueue {
             for observer in self.observers {
                 observer.closure(state)
             }
@@ -99,8 +99,8 @@ public class ObservableActor<T: Equatable> : Actor<T> {
         }
     }
     
-    public override init(initialState: T, transformers: [Transformer], reducer: Reducer, mainQueue: Queueable? = nil, processingQueue: Queueable? = nil) {
-        super.init(initialState: initialState, transformers: transformers, reducer: reducer, mainQueue: mainQueue, processingQueue: processingQueue)
+    public override init(initialState: T, transformers: [Transformer], reducer: Reducer, callbackQueue: Queueable? = nil, messageQueue: Queueable? = nil) {
+        super.init(initialState: initialState, transformers: transformers, reducer: reducer, callbackQueue: callbackQueue, messageQueue: messageQueue)
     }
 }
 

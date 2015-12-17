@@ -34,11 +34,13 @@ func ==(lhs: BankState, rhs: BankState) -> Bool {
 }
 
 class ObservableActorTests: XCTestCase {
-
     var bank: ObservableActor<BankState>!
     
-    func testSubscribing() {
-        bank = ObservableActor(initialState: BankState(transactions: [], balance: 0.0), interactors: [], reducer: { (state, message) in
+    func testObserving() {
+        let initialState = BankState(transactions: [], balance: 0.0)
+        let queue = dispatch_queue_create("test", DISPATCH_QUEUE_SERIAL).queueable()
+        
+        bank = ObservableActor(initialState: initialState, transformers: [], reducer: { (state, message) in
             if let t = message as? Transaction {
                 let transactions = [state.transactions, [t]].flatMap { $0 }
                 if t.transactionType == .Deposit {
@@ -49,13 +51,13 @@ class ObservableActorTests: XCTestCase {
             }
             
             return state
-        }, mainQueue: dispatch_queue_create("test", DISPATCH_QUEUE_SERIAL).queueable())
+        }, callbackQueue: queue)
         
-        let depositExp = expectationWithDescription("The actor should notify its subscribers of its updated balance after a deposit.")
-        let withdrawalExp = expectationWithDescription("The actor should notify its subscribers of its updated balance after a withdrawal.")
+        let depositExp = expectationWithDescription("The actor should notify its subscribers of its updated state after a message changes it.")
+        let withdrawalExp = expectationWithDescription("The actor should notify its subscribers of its updated state after a message changes it.")
         
         var i = 0
-        bank.subscribe { state in
+        bank.observe { state in
             if i == 0 && state.balance == 100 {
                 depositExp.fulfill()
             } else if i == 1 && state.balance == 50 {
