@@ -43,21 +43,19 @@ public class Actor<T> {
                 
                 func passOn(message: Message) {
                     if let next = gen.next() {
-                        self.messageQueue.enqueue {
-                            next(self, message, passOn)
-                        }
+                        next(self, message, passOn)
                     } else {
-                        self.messageQueue.enqueue {
-                            self._state = self.reducer(self.state, message)
-                            if let comp = completion {
-                                let state = self.state
-                                self.callbackQueue.enqueue { comp(state) }
-                            }
+                        self._state = self.reducer(self.state, message)
+                        if let comp = completion {
+                            let state = self.state
+                            self.callbackQueue.enqueue { comp(state) }
                         }
                     }
                 }
                 
-                passOn(message)
+                self.messageQueue.enqueue {
+                    passOn(message)
+                }
             } else {
                 self._state = self.reducer(self.state, message)
                 if let comp = completion {
